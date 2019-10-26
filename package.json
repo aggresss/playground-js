@@ -8,6 +8,6 @@
     "start:hello-webpack": "lerna exec --scope hello-webpack -- webpack --config webpack.config.js"
   },
   "devDependencies": {
-    "lerna": "^3.17.0"
+    "lerna": "^3.18.3"
   }
 }
