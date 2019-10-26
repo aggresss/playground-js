@@ -1,7 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "start:hello-webpack": "lerna exec --scope hello-webpack -- webpack --config webpack.config.js"
   },
