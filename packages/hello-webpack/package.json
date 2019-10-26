@@ -24,6 +24,7 @@
     "url": "https://github.com/aggresss/playground-js/issues"
   },
   "devDependencies": {
-    "webpack": "^4.41.2"
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
   }
 }
