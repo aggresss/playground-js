@@ -9,6 +9,8 @@ lerna init
 # package.json
 "workspaces": ["packages/*"]
 
-lerna create @hello/webpack
+lerna create hello-webpack
+
+lerna add webpack --dev --scope hello-webpack
 
 ```
