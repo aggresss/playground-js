@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "start:hello-webpack": "lerna exec --scope hello-webpack -- webpack --config webpack.config.js"
+    "build:hello-webpack": "lerna exec --scope hello-webpack -- webpack --config webpack.config.js",
+    "start:hello-webpack": "lerna exec --scope hello-webpack -- webpack-dev-server --progress --env.debug --env.demo --port 8000"
   },
   "devDependencies": {
     "lerna": "^3.18.3"

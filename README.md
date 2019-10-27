@@ -11,5 +11,8 @@ lerna init
 
 lerna create hello-webpack
 lerna add webpack --dev --scope hello-webpack
+lerna add webpack-cli --dev --scope hello-webpack
+lerna add webpack-dev-server --dev --scope hello-webpack
+npm run start:hello-webpack
 
 ```
