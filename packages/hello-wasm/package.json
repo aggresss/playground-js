@@ -1,0 +1,26 @@
+{
+  "name": "hello-wasm",
+  "version": "0.1.0",
+  "description": "> TODO: description",
+  "author": "aggresss <aggresss@163.com>",
+  "homepage": "https://github.com/aggresss/playground-js#readme",
+  "license": "ISC",
+  "main": "src/index.js",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aggresss/playground-js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/aggresss/playground-js/issues"
+  }
+}
