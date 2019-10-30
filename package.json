@@ -6,7 +6,9 @@
   ],
   "scripts": {
     "build:hello-webpack": "lerna exec --scope hello-webpack -- webpack --config webpack.config.js",
-    "start:hello-webpack": "lerna exec --scope hello-webpack -- webpack-dev-server --progress --env.debug --env.demo --port 8000"
+    "start:hello-webpack": "lerna exec --scope hello-webpack -- webpack-dev-server --progress --env.debug --env.demo --port 8000",
+    "start:hello-rollup": "lerna exec --scope hello-rollup -- rollup -c rollup.config.js",
+    "start:hello-gulp": "lerna exec --scope hello-gulp -- gulp"
   },
   "devDependencies": {
     "lerna": "^3.18.3"
