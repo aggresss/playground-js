@@ -1,11 +1,11 @@
 {
-  "name": "hello-typescript",
+  "name": "hello-promise",
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "aggresss <aggresss@163.com>",
   "homepage": "https://github.com/aggresss/playground-js#readme",
   "license": "ISC",
-  "main": "lib/hello-typescript.js",
+  "main": "lib/hello-promise.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -22,8 +22,5 @@
   },
   "bugs": {
     "url": "https://github.com/aggresss/playground-js/issues"
-  },
-  "devDependencies": {
-    "typescript": "^3.6.4"
   }
 }
