@@ -3,6 +3,7 @@
 lerna init
 lerna bootstrap
 lerna bootstrap --hoist
+lerna clean
 
 # lerna.json
 # "npmClient": "yarn",
