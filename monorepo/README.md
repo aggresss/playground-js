@@ -2,6 +2,7 @@
 ```shell
 lerna init
 lerna bootstrap
+lerna bootstrap --hoist
 
 # lerna.json
 # "npmClient": "yarn",
