@@ -17,7 +17,7 @@ lerna add webpack-cli --dev --scope hello-webpack
 lerna add webpack-dev-server --dev --scope hello-webpack
 npm run start:hello-webpack
 
-yarn instal # = lerna bootstrap --npm-client yarn --use-workspaces
+yarn install # = lerna bootstrap --npm-client yarn --use-workspaces
 yarn workspaces run clean
 
 
