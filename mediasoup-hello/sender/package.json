@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "parcel ./index.html"
+    "start": "parcel -p 1234 ./index.html",
+    "https": "parcel -p 2234 ./index.html --https --cert $HTTPS_CERT_FULLCHAIN --key $HTTPS_CERT_PRIVKEY"
   },
   "keywords": [],
   "author": "",
