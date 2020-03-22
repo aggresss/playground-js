@@ -3,7 +3,7 @@ import { Device } from 'mediasoup-client';
 
 const request = (path, query) => {
   const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
-  return fetch(`http://localhost:3000/${path}${qs}`).then(res => res.json());
+  return fetch(`${document.location.protocol}//${document.location.hostname}:3000/${path}${qs}`).then(res => res.json());
 };
 
 const [$setup, $consume] = document.querySelectorAll("button");

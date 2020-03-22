@@ -1,10 +1,9 @@
 /* eslint-disable require-atomic-updates */
 import { Device } from "mediasoup-client";
 
-const hostname = document.location.hostname;
 const request = (path, query) => {
   const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
-  return fetch(`${document.location.protocol}//${hostname}:3000/${path}${qs}`).then(res => res.json());
+  return fetch(`${document.location.protocol}//${document.location.hostname}:3000/${path}${qs}`).then(res => res.json());
 };
 
 const [$setup, $produce] = document.querySelectorAll("button");
