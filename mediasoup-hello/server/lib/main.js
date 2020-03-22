@@ -122,8 +122,10 @@ const getWorkerNum = () => os.cpus().length;
       cert: fs.readFileSync(cert_file),
     };
     https.createServer(options, handle).listen(port);
+    console.log("start server as https mode.");
   } else {
     http.createServer(handle).listen(port);
+    console.log("start server as http mode.");
   }
   console.log("server started at ", listenIps, "port:", port);
 })();
