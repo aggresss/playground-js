@@ -2,9 +2,9 @@
 import { Device } from 'mediasoup-client';
 
 const localIp = process.env.MEDIASOUP_ANNOUNCED_IP || "127.0.0.1";
-const $setup = document.getElementById('setup');
-const $consume = document.getElementById('consume');
-const $pid = document.getElementById('produce-id');
+
+const [$setup, $consume] = document.querySelectorAll("button");
+const [$pid] = document.querySelectorAll("input");
 
 const request = (path, query) => {
   const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";

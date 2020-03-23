@@ -2,9 +2,9 @@
 import { Device } from "mediasoup-client";
 
 const localIp = process.env.MEDIASOUP_ANNOUNCED_IP || "127.0.0.1";
-const $setup = document.getElementById('setup');
-const $produce = document.getElementById('produce');
-const $pid = document.getElementById('produce-id');
+
+const [$setup, $produce] = document.querySelectorAll("button");
+const [$pid] = document.querySelectorAll("input");
 
 const state = {
   device: null,
