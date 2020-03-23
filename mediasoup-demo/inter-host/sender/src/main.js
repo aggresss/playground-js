@@ -1,13 +1,10 @@
 /* eslint-disable require-atomic-updates */
 import { Device } from "mediasoup-client";
 
-const request = (path, query) => {
-  const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
-  return fetch(`http://localhost:3000/${path}${qs}`).then(res => res.json());
-};
-
-const [$setup, $produce] = document.querySelectorAll("button");
-const [$pid] = document.querySelectorAll("input");
+const localIp = process.env.MEDIASOUP_ANNOUNCED_IP || "127.0.0.1";
+const $setup = document.getElementById('setup');
+const $produce = document.getElementById('produce');
+const $pid = document.getElementById('produce-id');
 
 const state = {
   device: null,
@@ -15,8 +12,14 @@ const state = {
   producer: null
 };
 
+const request = (path, query) => {
+  const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
+  return fetch(`http://${localIp}:3000/${path}${qs}`).then(res => res.json());
+};
+
 $setup.onclick = async () => {
   const routerRtpCapabilities = await request("rtpCapabilities");
+  await request("createPipeTransport");
 
   const device = new Device();
   await device.load({ routerRtpCapabilities });
@@ -29,7 +32,7 @@ $setup.onclick = async () => {
 
 $produce.onclick = async () => {
   const { id, iceParameters, iceCandidates, dtlsParameters } = await request(
-    "createTransport", { direction: "send" }
+    "createWebrtcTransport"
   );
 
   if (state.sendTransport === null) {
