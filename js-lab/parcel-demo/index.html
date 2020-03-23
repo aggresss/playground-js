@@ -6,8 +6,15 @@
   </head>
   <body>
     <h1>Hello, World!</h1>
+    <div>
+      <button id="myBtn">btn </button>
+    </div>
     <script>
       console.log('Hello, World!')
+      const btn = document.getElementById("myBtn");
+      btn.onclick = () => {
+        console.log('btn click');
+      }
     </script>
   </body>
 </html>
