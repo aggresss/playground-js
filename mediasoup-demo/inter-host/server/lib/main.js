@@ -1,6 +1,8 @@
 const http = require("http");
 const mediasoup = require("mediasoup");
 
+
+
 const port = process.env.PORT || 3000;
 const mediaCodecs = [
   {
@@ -17,7 +19,7 @@ let room = {};
 
 const request = (path, query) => {
   const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
-  return fetch(`http://${remoteIp}:3001/${path}${qs}`).then(res => res.json());
+  return fetch(`http://${remoteIp}:3000/${path}${qs}`).then(res => res.json());
 };
 
 (async function() {
