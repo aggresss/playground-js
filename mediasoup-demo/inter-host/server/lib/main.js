@@ -1,7 +1,6 @@
 const http = require("http");
 const mediasoup = require("mediasoup");
-
-
+const fetch = require("node-fetch")
 
 const port = process.env.PORT || 3000;
 const mediaCodecs = [
@@ -19,7 +18,7 @@ let room = {};
 
 const request = (path, query) => {
   const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
-  return fetch(`http://${remoteIp}:3000/${path}${qs}`).then(res => res.json());
+  return fetch(`http://${remoteIp}:3001/${path}${qs}`).then(res => res.json());
 };
 
 (async function() {
@@ -46,7 +45,6 @@ const request = (path, query) => {
           const { ip, port } = query;
           room.remoteIp = ip;
           room.remotePort = port;
-          await room.pipeTransport.connect({"ip": room.remoteIp, "port": room.remotePort});
 
           res.end(JSON.stringify({}));
           break;
@@ -68,7 +66,7 @@ const request = (path, query) => {
           break;
         }
         case "/createWebRtcTransport": {
-          room.webrtcTransport = await router.createWebRtcTransport({ listenIp });
+          room.webrtcTransport = await room.router.createWebRtcTransport({ listenIps: [listenIp] });
 
           res.end(
             JSON.stringify({
@@ -82,15 +80,17 @@ const request = (path, query) => {
         }
         case "/transportConnect": {
           const { transportId, dtlsParameters } = query;
+          await room.pipeTransport.connect({"ip": room.remoteIp, "port": room.remotePort});
           await room.webrtcTransport.connect({ dtlsParameters });
 
           res.end(JSON.stringify({}));
           break;
         }
         case "/reportRtpParameters": {
-          const { kind, rtpParameters } = query;
+          const { produceId, kind, rtpParameters } = query;
           room.remoteKind = kind;
           room.remoteRtpParameters = rtpParameters;
+          room.remoteProduceId = produceId;
           break;
         }
         case "/produce": {
@@ -101,6 +101,7 @@ const request = (path, query) => {
           await request(
             "reportRtpParameters",
             {
+              produceId: room.webrtcProducer.id,
               kind,
               rtpParameters
             }
@@ -110,14 +111,14 @@ const request = (path, query) => {
           break;
         }
         case "/consume": {
-          const { producerId, rtpCapabilities } = query;
+          const { rtpCapabilities } = query;
           room.pipeProducer = await room.pipeTransport.produce({
-            id: producerId,
+            id: room.remoteProduceId,
             kind: room.remoteKind,
             rtpParameters: room.remoteRtpParameters
           });
           room.webrtcConsumer = await room.webrtcTransport.consume({
-            producerId,
+            producerId: room.remoteProduceId,
             rtpCapabilities
           });
 

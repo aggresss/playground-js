@@ -32,7 +32,7 @@ $setup.onclick = async () => {
 
 $produce.onclick = async () => {
   const { id, iceParameters, iceCandidates, dtlsParameters } = await request(
-    "createWebrtcTransport"
+    "createWebRtcTransport"
   );
 
   if (state.sendTransport === null) {

@@ -4,7 +4,6 @@ import { Device } from 'mediasoup-client';
 const localIp = process.env.MEDIASOUP_ANNOUNCED_IP || "127.0.0.1";
 const $setup = document.getElementById('setup');
 const $consume = document.getElementById('consume');
-const $pid = document.getElementById('produce-id');
 
 const request = (path, query) => {
   const qs = query ? "?q=" + encodeURIComponent(JSON.stringify(query)) : "";
@@ -38,7 +37,7 @@ $consume.onclick = async () => {
       iceParameters,
       iceCandidates,
       dtlsParameters
-    } = await request('createWebrtcTransport', { direction: "recv" });
+    } = await request('createWebRtcTransport');
 
     const recvTransport = state.device.createRecvTransport({ id, iceParameters, iceCandidates, dtlsParameters });
 
@@ -56,7 +55,6 @@ $consume.onclick = async () => {
 
   const consumerInfo = await request('consume', {
     transportId: state.recvTransport.id,
-    producerId: $pid.value,
     rtpCapabilities: state.device.rtpCapabilities
   });
   const consumer = await state.recvTransport.consume(consumerInfo);
