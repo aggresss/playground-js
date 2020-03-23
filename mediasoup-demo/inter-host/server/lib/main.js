@@ -91,12 +91,14 @@ const request = (path, query) => {
           room.remoteKind = kind;
           room.remoteRtpParameters = rtpParameters;
           room.remoteProduceId = produceId;
+
+          res.end(JSON.stringify({}));
           break;
         }
         case "/produce": {
           const { kind, rtpParameters } = query;
+
           room.webrtcProducer = await room.webrtcTransport.produce({ kind, rtpParameters });
-          room.pipeConsumer = await room.pipeTransport.consume({"producerId": room.webrtcProducer.id});
 
           await request(
             "reportRtpParameters",
@@ -106,6 +108,8 @@ const request = (path, query) => {
               rtpParameters
             }
           );
+
+          room.pipeConsumer = await room.pipeTransport.consume({"producerId": room.webrtcProducer.id});
 
           res.end(JSON.stringify({ id: room.webrtcProducer.id }));
           break;
@@ -125,7 +129,7 @@ const request = (path, query) => {
           res.end(
             JSON.stringify({
               id: room.webrtcConsumer.id,
-              producerId,
+              producerId: room.remoteProduceId,
               kind: room.remoteKind,
               rtpParameters: room.remoteRtpParameters
             })
