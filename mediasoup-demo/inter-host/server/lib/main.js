@@ -99,17 +99,15 @@ const request = (path, query) => {
           const { kind, rtpParameters } = query;
 
           room.webrtcProducer = await room.webrtcTransport.produce({ kind, rtpParameters });
-
+          room.pipeConsumer = await room.pipeTransport.consume({"producerId": room.webrtcProducer.id});
           await request(
             "reportRtpParameters",
             {
               produceId: room.webrtcProducer.id,
-              kind,
-              rtpParameters
+              kind: room.pipeConsumer.kind,
+              rtpParameters: room.pipeConsumer.rtpParameters
             }
           );
-
-          room.pipeConsumer = await room.pipeTransport.consume({"producerId": room.webrtcProducer.id});
 
           res.end(JSON.stringify({ id: room.webrtcProducer.id }));
           break;
