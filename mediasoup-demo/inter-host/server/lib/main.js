@@ -25,6 +25,7 @@ const request = (path, query) => {
   room.worker = await mediasoup.createWorker();
   room.router = await room.worker.createRouter({ mediaCodecs });
   room.pipeTransport = await room.router.createPipeTransport({ listenIp });
+  console.log('local tuple', room.pipeTransport.tuple.localIp, ':', room.pipeTransport.tuple.localPort);
 
   http
     .createServer(async (req, res) => {
@@ -47,6 +48,7 @@ const request = (path, query) => {
           room.remoteIp = ip;
           room.remotePort = port;
           await room.pipeTransport.connect({"ip": room.remoteIp, "port": room.remotePort});
+          console.log('Pipe connect to remote IP:', room.remoteIp, 'remote port:', room.remotePort);
           res.end(JSON.stringify({}));
           break;
         }
@@ -62,7 +64,6 @@ const request = (path, query) => {
             ip: room.pipeTransport.tuple.localIp,
             port: room.pipeTransport.tuple.localPort
           }));
-          console.log('local tuple', room.pipeTransport.tuple.localIp, ':', room.pipeTransport.tuple.localPort);
           break;
         }
         case "/createWebRtcTransport": {
