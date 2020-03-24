@@ -19,7 +19,7 @@ const request = (path, query) => {
 
 $setup.onclick = async () => {
   const routerRtpCapabilities = await request("rtpCapabilities");
-  await request("createPipeTransport");
+  await request("reportPipeAddress");
 
   const device = new Device();
   await device.load({ routerRtpCapabilities });
