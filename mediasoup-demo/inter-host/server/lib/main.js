@@ -130,8 +130,8 @@ const request = (path, query) => {
             JSON.stringify({
               id: room.webrtcConsumer.id,
               producerId: room.remoteProduceId,
-              kind: room.remoteKind,
-              rtpParameters: room.remoteRtpParameters
+              kind: room.webrtcConsumer.kind,
+              rtpParameters: room.webrtcConsumer.rtpParameters
             })
           );
           break;
