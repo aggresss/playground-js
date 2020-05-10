@@ -1,0 +1,15 @@
+{
+  "name": "tap-demo",
+  "version": "1.0.0",
+  "description": "TAP Getting Started",
+  "main": "index.js",
+  "scripts": {
+    "test": "tap"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tap": "^14.10.7"
+  }
+}
