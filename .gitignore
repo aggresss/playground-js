@@ -63,3 +63,6 @@ typings/
 
 # output directory
 dist/
+
+# temp directory
+/tmp/
