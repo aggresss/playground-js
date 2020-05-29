@@ -34,12 +34,15 @@ setDelay(1000)
     console.log(err);
 })
 
-(async ()=>{
+const demo = async ()=>{
   const result = await setDelay(1000);
   console.log(result);
   console.log(await setDelaySecond(2));
   console.log(await setDelay(1000));
   console.log('完成了');
-})()
+}
+demo().catch(err=>{
+    console.log(err);
+})
 
 
