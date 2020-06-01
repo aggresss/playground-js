@@ -1,0 +1,16 @@
+{
+  "name": "video-pc",
+  "version": "1.0.0",
+  "description": "webrtc video to peerConnection",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./src/index.html --port 2345",
+    "https": "parcel ./src/index.html --port 4443 --https --cert $HTTPS_CERT_FULLCHAIN --key $HTTPS_CERT_PRIVKEY"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  }
+}
