@@ -100,8 +100,8 @@ function onCreateSessionDescriptionError(error) {
 }
 
 function onCreateOfferSuccess(desc) {
-  console.log(`Offer from pc1
-${desc.sdp}`);
+//  console.log(`Offer from pc1
+// ${desc.sdp}`);
   console.log('pc1 setLocalDescription start');
   pc1.setLocalDescription(desc, () => onSetLocalSuccess(pc1), onSetSessionDescriptionError);
   console.log('pc2 setRemoteDescription start');
@@ -133,8 +133,8 @@ function gotRemoteStream(event) {
 }
 
 function onCreateAnswerSuccess(desc) {
-  console.log(`Answer from pc2:
-${desc.sdp}`);
+//  console.log(`Answer from pc2:
+// ${desc.sdp}`);
   console.log('pc2 setLocalDescription start');
   pc2.setLocalDescription(desc, () => onSetLocalSuccess(pc2), onSetSessionDescriptionError);
   console.log('pc1 setRemoteDescription start');
