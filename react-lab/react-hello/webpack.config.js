@@ -8,6 +8,7 @@ const outPath = path.join(__dirname, 'dist');
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const webpackConfig = {
   context: sourcePath,
@@ -24,11 +25,12 @@ const webpackConfig = {
           {
             loader: 'ts-loader',
             options: {
-              happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+              happyPackMode: true
             }
           }
         ],
       },
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
     ],
   },
   plugins: [
@@ -40,7 +42,11 @@ const webpackConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env.BUILD_TIME': JSON.stringify(new Date().toLocaleString())
-    })
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      checkSyntacticErrors: true,
+      tsconfig: '../tsconfig.json',
+     })
   ],
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
@@ -56,6 +62,7 @@ const webpackConfig = {
     quiet: false,
     stats: 'minimal'
   },
+  devtool: "source-map",
   target: "web"
 };
 
