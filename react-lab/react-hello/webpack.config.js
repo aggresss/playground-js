@@ -12,7 +12,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const webpackConfig = {
   context: sourcePath,
-  entry: './index.ts',
+  entry: './index.tsx',
   output: {
     path: outPath,
     filename: '[name].[hash].bundle.js'
@@ -31,6 +31,17 @@ const webpackConfig = {
         ],
       },
       { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          }
+        ]
+      }
     ],
   },
   plugins: [
