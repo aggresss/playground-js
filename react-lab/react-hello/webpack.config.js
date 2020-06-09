@@ -46,7 +46,7 @@ const webpackConfig = {
     new ForkTsCheckerWebpackPlugin({
       checkSyntacticErrors: true,
       tsconfig: '../tsconfig.json',
-     })
+    })
   ],
   resolve: {
     extensions: ['.js', '.ts', '.tsx'],
