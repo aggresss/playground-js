@@ -24,6 +24,9 @@
     "url": "https://github.com/aggresss/playground-js/issues"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.155",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0"
