@@ -1,6 +1,6 @@
 video {
   margin: 0 10px 0 0;
-  width: calc(50% - 7px);
+  width: calc(50% - 10px);
 }
 
 video:last-of-type {
