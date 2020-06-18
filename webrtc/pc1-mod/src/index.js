@@ -91,23 +91,28 @@ async function call() {
   }
   const configuration = getSelectedSdpSemantics();
   console.log('RTCPeerConnection configuration:', configuration);
+
   pc1 = new RTCPeerConnection(configuration);
   console.log('Created local peer connection object pc1');
   pc1.addEventListener('icecandidate', e => onIceCandidate(pc1, e));
+  pc1.addEventListener('iceconnectionstatechange', e => onIceStateChange(pc1, e));
+  pc1.addEventListener('signalingstatechange', e => onSignalingStateChange(pc1, e));
+
   pc2 = new RTCPeerConnection(configuration);
   console.log('Created remote peer connection object pc2');
   pc2.addEventListener('icecandidate', e => onIceCandidate(pc2, e));
-  pc1.addEventListener('iceconnectionstatechange', e => onIceStateChange(pc1, e));
   pc2.addEventListener('iceconnectionstatechange', e => onIceStateChange(pc2, e));
+  pc2.addEventListener('signalingstatechange', e => onSignalingStateChange(pc2, e));
   pc2.addEventListener('track', gotRemoteStream);
 
   localStream.getTracks().forEach(track => pc1.addTrack(track, localStream));
   console.log('Added local stream to pc1');
 
+  console.log('pc1 set local description start');
   try {
-    console.log('pc1 createOffer start');
     const offer = await pc1.createOffer(offerOptions);
-    await onCreateOfferSuccess(offer);
+    await pc1.setLocalDescription(offer);
+    onSetLocalSuccess(pc1);
   } catch (e) {
     onCreateSessionDescriptionError(e);
   }
@@ -119,14 +124,6 @@ function onCreateSessionDescriptionError(error) {
 
 async function onCreateOfferSuccess(desc) {
   console.log(`Offer from pc1\n${desc.sdp}`);
-  console.log('pc1 setLocalDescription start');
-  try {
-    await pc1.setLocalDescription(desc);
-    onSetLocalSuccess(pc1);
-  } catch (e) {
-    onSetSessionDescriptionError();
-  }
-
   console.log('pc2 setRemoteDescription start');
   try {
     await pc2.setRemoteDescription(desc);
@@ -135,13 +132,19 @@ async function onCreateOfferSuccess(desc) {
     onSetSessionDescriptionError();
   }
 
-  console.log('pc2 createAnswer start');
+  console.log('pc2 set local description start');
   // Since the 'remote' side has no media stream we need
   // to pass in the right constraints in order for it to
   // accept the incoming offer of audio and video.
   try {
     const answer = await pc2.createAnswer();
-    await onCreateAnswerSuccess(answer);
+    try {
+      await pc2.setLocalDescription(answer);
+      onSetLocalSuccess(pc2);
+      await onCreateAnswerSuccess(answer);
+    } catch (e) {
+      onSetSessionDescriptionError(e);
+    }
   } catch (e) {
     onCreateSessionDescriptionError(e);
   }
@@ -168,13 +171,6 @@ function gotRemoteStream(e) {
 
 async function onCreateAnswerSuccess(desc) {
   console.log(`Answer from pc2:\n${desc.sdp}`);
-  console.log('pc2 setLocalDescription start');
-  try {
-    await pc2.setLocalDescription(desc);
-    onSetLocalSuccess(pc2);
-  } catch (e) {
-    onSetSessionDescriptionError(e);
-  }
   console.log('pc1 setRemoteDescription start');
   try {
     await pc1.setRemoteDescription(desc);
@@ -185,27 +181,34 @@ async function onCreateAnswerSuccess(desc) {
 }
 
 async function onIceCandidate(pc, event) {
-  try {
-    await (getOtherPc(pc).addIceCandidate(event.candidate));
-    onAddIceCandidateSuccess(pc);
-  } catch (e) {
-    onAddIceCandidateError(pc, e);
+  if (event.candidate) {
+    console.log(`${getName(pc)} gather ICE candidate:\n${event.candidate.candidate}`);
+  } else {
+    // Gather cadidate complete.
+    // https://developer.mozilla.org/zh-CN/docs/Web/API/RTCPeerConnection/onicecandidate
+    console.log(`${getName(pc)} gather ICE Candidate complete.`);
+    if (pc === pc1) {
+      try {
+        const offer = await pc1.createOffer(offerOptions);
+        await onCreateOfferSuccess(offer);
+      } catch (e) {
+        onCreateSessionDescriptionError(e);
+      }
+    }
   }
-  console.log(`${getName(pc)} ICE candidate:\n${event.candidate ? event.candidate.candidate : '(null)'}`);
-}
-
-function onAddIceCandidateSuccess(pc) {
-  console.log(`${getName(pc)} addIceCandidate success`);
-}
-
-function onAddIceCandidateError(pc, error) {
-  console.log(`${getName(pc)} failed to add ICE Candidate: ${error.toString()}`);
 }
 
 function onIceStateChange(pc, event) {
   if (pc) {
     console.log(`${getName(pc)} ICE state: ${pc.iceConnectionState}`);
     console.log('ICE state change event: ', event);
+  }
+}
+
+function onSignalingStateChange(pc, event) {
+  if (pc) {
+    console.log(`${getName(pc)} signaling state: ${pc.signalingState}`);
+    console.log('signaling state change event: ', event);
   }
 }
 
