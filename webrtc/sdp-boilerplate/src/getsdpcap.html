@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    video {
+      width: 320px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="local">
+    <h2>Local Video</h2>
+  </div>
+  <div id="remotes">
+    <h2>Remote Videos</h2>
+  </div>
+  <script src="./sdp.js"></script>
+  <script>
+    async function getLocalRtpCaps() {
+      const offerOptions = {
+        offerToReceiveAudio: 1,
+        offerToReceiveVideo: 1
+      };
+      let pc = new RTCPeerConnection();
+      try {
+        const offer = await pc.createOffer()
+        return offer.sdp;
+      } catch (e) {
+        console.log(`Get local RtpCaps faild: ${e}`);
+      }
+
+    }
+
+    getLocalRtpCaps()
+    .then(data => {
+      console.log(`getLocalRtpCaps Return:\n%c${data}`, 'color:cyan');
+    })
+
+
+  </script>
+</body>
+
+</html>
