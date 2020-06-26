@@ -24,20 +24,20 @@
         offerToReceiveVideo: 1
       };
       let pc = new RTCPeerConnection();
+      let sdp = SDPUtils.writeSessionBoilerplate(2, new Date().getTime(), 'qrtc')
       try {
         const offer = await pc.createOffer(offerOptions);
+        console.log(`Original Offer:\n%c${offer.sdp}`, 'color:yellow');
         const sections = SDPUtils.splitSections(offer.sdp);
         for (index in sections) {
           if (sections[index].indexOf('m=audio') == 0) {
-            var audioRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
+            const audioRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
+            sdp += SDPUtils.writeRtpDescription('audio', audioRtpParameters);
           } else if (sections[index].indexOf('m=video') == 0) {
-            var videoRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
+            const videoRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
+            sdp += SDPUtils.writeRtpDescription('video', videoRtpParameters);
           }
         }
-        const rtpParameters = SDPUtils.parseRtpParameters(sections[1]);
-        let sdp = SDPUtils.writeSessionBoilerplate(0, undefined, 'qrtc') +
-          SDPUtils.writeRtpDescription('audio', audioRtpParameters) +
-          SDPUtils.writeRtpDescription('video', videoRtpParameters);
         return sdp;
       } catch (e) {
         console.log(`Get local RtpCaps faild: ${e}`);
