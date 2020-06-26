@@ -25,20 +25,29 @@
       };
       let pc = new RTCPeerConnection();
       try {
-        const offer = await pc.createOffer()
-        return offer.sdp;
+        const offer = await pc.createOffer(offerOptions);
+        const sections = SDPUtils.splitSections(offer.sdp);
+        for (index in sections) {
+          if (sections[index].indexOf('m=audio') == 0) {
+            var audioRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
+          } else if (sections[index].indexOf('m=video') == 0) {
+            var videoRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
+          }
+        }
+        const rtpParameters = SDPUtils.parseRtpParameters(sections[1]);
+        let sdp = SDPUtils.writeSessionBoilerplate(0, undefined, 'qrtc') +
+          SDPUtils.writeRtpDescription('audio', audioRtpParameters) +
+          SDPUtils.writeRtpDescription('video', videoRtpParameters);
+        return sdp;
       } catch (e) {
         console.log(`Get local RtpCaps faild: ${e}`);
       }
-
     }
 
     getLocalRtpCaps()
     .then(data => {
       console.log(`getLocalRtpCaps Return:\n%c${data}`, 'color:cyan');
     })
-
-
   </script>
 </body>
 
