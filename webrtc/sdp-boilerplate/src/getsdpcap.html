@@ -29,7 +29,7 @@
         const offer = await pc.createOffer(offerOptions);
         console.log(`Original Offer:\n%c${offer.sdp}`, 'color:yellow');
         const sections = SDPUtils.splitSections(offer.sdp);
-        for (index in sections) {
+        for (let index in sections) {
           if (sections[index].indexOf('m=audio') == 0) {
             const audioRtpParameters = SDPUtils.parseRtpParameters(sections[index]);
             sdp += SDPUtils.writeRtpDescription('audio', audioRtpParameters);
