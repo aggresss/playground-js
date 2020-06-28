@@ -38,6 +38,7 @@
             sdp += SDPUtils.writeRtpDescription('video', videoRtpParameters);
           }
         }
+        pc.close();
         return sdp;
       } catch (e) {
         console.log(`Get local RtpCaps faild: ${e}`);
