@@ -20,8 +20,8 @@
   <script>
     async function getLocalRtpCaps() {
       let pc = new RTCPeerConnection();
-      pc.addTransceiver('audio', {direction: 'recvonly'});
-      pc.addTransceiver('video', {direction: 'recvonly'});
+      pc.addTransceiver('audio', {direction: 'inactive'});
+      pc.addTransceiver('video', {direction: 'inactive'});
       let sdp = SDPUtils.writeSessionBoilerplate(2, new Date().getTime(), 'qrtc')
       try {
         // createOffer options can be replaced by addTransceiver with recvonly
