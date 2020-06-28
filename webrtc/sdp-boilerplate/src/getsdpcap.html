@@ -19,14 +19,14 @@
   <script src="./sdp.js"></script>
   <script>
     async function getLocalRtpCaps() {
-      const offerOptions = {
-        offerToReceiveAudio: 1,
-        offerToReceiveVideo: 1
-      };
       let pc = new RTCPeerConnection();
+      pc.addTransceiver('audio', {direction: 'recvonly'});
+      pc.addTransceiver('video', {direction: 'recvonly'});
       let sdp = SDPUtils.writeSessionBoilerplate(2, new Date().getTime(), 'qrtc')
       try {
-        const offer = await pc.createOffer(offerOptions);
+        // createOffer options can be replaced by addTransceiver with recvonly
+        // const offer = await pc.createOffer({offerToReceiveAudio: 1, offerToReceiveVideo: 1});
+        const offer = await pc.createOffer();
         console.log(`Original Offer:\n%c${offer.sdp}`, 'color:yellow');
         const sections = SDPUtils.splitSections(offer.sdp);
         for (let index in sections) {
