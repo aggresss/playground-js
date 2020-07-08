@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello, World!</title>
+    <link rel="help" href="https://github.com/aggresss/dotfiles">
+    <style type="text/css">
+      h1 {color:magenta}
+      p {color:cyan}
+    </style>
+  </head>
+  <body>
+    <div id='graphTest'></div>
+    <script src='./graph.js'></script>
+    <script>
+      console.log('Hello, World!');
+      const container = document.createElement('div');
+      container.id = 'graph01';
+      document.getElementById('graphTest').appendChild(container);
+      const testCanvas01 = document.createElement('canvas');
+      testCanvas01.id = 'testCanvas01';
+      testCanvas01.title = 'testCanvas01';
+      container.appendChild(testCanvas01);
+      const testGraph01 = new TimelineGraphView('graph01', 'testCanvas01');
+      testGraph01.updateEndDate();
+
+      var seqNum = 0;
+      const lineSeries = new TimelineDataSeries();
+      lineSeries.setColor('cyan');
+      const squareSeries = new TimelineDataSeries();
+      squareSeries.setColor('magenta');
+
+      window.setInterval(() => {
+        const now = new Date().getTime();
+        lineSeries.addPoint(now, seqNum);
+        squareSeries.addPoint(now, seqNum * 2);
+        testGraph01.setDataSeries([lineSeries, squareSeries]);
+        testGraph01.updateEndDate();
+        seqNum++;
+      }, 1000);
+
+    </script>
+  </body>
+</html>
+
