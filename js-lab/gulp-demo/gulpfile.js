@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
+var watch = require("gulp-watch");
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -14,6 +15,10 @@ gulp.task('build', () => {
     .pipe(buffer())
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('dist/'))
+});
+
+gulp.task('watch', () => {
+  watch('src/', gulp.series('build'))
 });
 
 gulp.task('default', gulp.series('build'))
