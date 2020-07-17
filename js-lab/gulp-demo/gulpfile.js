@@ -7,6 +7,7 @@ var buffer = require('vinyl-buffer');
 
 
 gulp.task('build', () => {
+
   return browserify({
       entries : ["src/main.js"]
     })
@@ -15,10 +16,12 @@ gulp.task('build', () => {
     .pipe(buffer())
     .pipe(rename('bundle.js'))
     .pipe(gulp.dest('dist/'))
+
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', done => {
   watch('src/', gulp.series('build'))
+  done();
 });
 
 gulp.task('default', gulp.series('build'))

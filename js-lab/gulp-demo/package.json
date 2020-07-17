@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp",
-    "server": "parcel ./hello.html --port 2345"
+    "server": "gulp live"
   },
   "keywords": [],
   "author": "",
