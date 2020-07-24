@@ -1,26 +1,36 @@
 var gulp = require('gulp');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
+var watchify = require('watchify');
 var tsify = require('tsify');
+var gutil = require('gulp-util');
 var paths = {
-    pages: ['src/*.html']
+  pages: ['src/*.html']
 };
 
+var watchedBrowserify = watchify(
+  browserify({
+    basedir: '.',
+    debug: true,
+    entries: ['src/main.ts'],
+    cache: {},
+    packageCache: {}
+  }).plugin(tsify)
+);
+watchedBrowserify.on('update', bundle);
+watchedBrowserify.on('log', gutil.log);
+
 gulp.task('copy-html', function () {
-    return gulp.src(paths.pages)
-        .pipe(gulp.dest('dist'));
+  return gulp.src(paths.pages)
+    .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', gulp.series(gulp.parallel('copy-html'), function () {
-    return browserify({
-        basedir: '.',
-        debug: true,
-        entries: ['src/main.ts'],
-        cache: {},
-        packageCache: {}
-    })
-    .plugin(tsify)
+function bundle() {
+  return watchedBrowserify
     .bundle()
+    .on('error', gutil.log)
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('dist'));
-}));
+}
+
+gulp.task('default', gulp.series(gulp.parallel('copy-html'), bundle));
