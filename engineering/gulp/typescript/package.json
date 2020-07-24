@@ -14,8 +14,10 @@
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-util": "^3.0.8",
     "tsify": "^4.0.2",
     "typescript": "^3.9.7",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.1"
   }
 }
