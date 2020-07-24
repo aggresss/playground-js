@@ -1,0 +1,10 @@
+{
+  "files": [
+      "src/js/index.ts",
+      "src/js/App.ts"
+  ],
+  "compilerOptions": {
+      "noImplicitAny": true,
+      "target": "es5"
+  }
+}

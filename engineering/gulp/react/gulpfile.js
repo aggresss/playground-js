@@ -6,6 +6,7 @@ const plumber = require('gulp-plumber');
 const rename = require('gulp-rename');
 const header = require('gulp-header');
 const touch = require('gulp-touch-cmd');
+const tsify = require('tsify');
 const browserify = require('browserify');
 const watchify = require('watchify');
 const envify = require('envify/custom');
@@ -46,7 +47,7 @@ function bundle(options) {
   let bundler = browserify(
     {
       entries: PKG.main,
-      extensions: ['.js', '.jsx'],
+      extensions: ['.ts', '.tsx'],
       // required for sourcemaps (must be false otherwise).
       debug: process.env.NODE_ENV === 'development',
       // required for watchify.
@@ -56,6 +57,7 @@ function bundle(options) {
       // required to be true only for watchify.
       fullPaths: watch
     })
+    .plugin(tsify)
     .transform('babelify')
     .transform(envify(
       {
