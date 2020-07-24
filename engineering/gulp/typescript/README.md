@@ -27,3 +27,5 @@ Uglify帮你压缩代码，将花费更少的时间去下载它们。
 1. 调用 watchedBrowserify.on("log", gutil.log); 将日志打印到控制台。
 
 因为 Uglify 是用于混淆你的代码，所以我们还要安装 vinyl-buffer 和 gulp-sourcemaps 来支持 sourcemaps
+
+注意uglify只是调用了 buffer 和 sourcemaps 的调用是用于确保 sourcemaps 可以工作。 这些调用让我们可以使用单独的 sourcemap 文件，而不是之前的内嵌的sourcemaps。
