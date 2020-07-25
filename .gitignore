@@ -65,5 +65,8 @@ typings/
 dist/
 out/
 
+# package lock file
+package-lock.json
+
 # temp directory
 /tmp/
