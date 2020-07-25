@@ -162,12 +162,12 @@ gulp.task('dist', gulp.series(
 
 gulp.task('watch', (done) => {
 	// Watch changes in HTML.
-	gulp.watch(['html/index.html'], gulp.series(
+	gulp.watch(['src/html/index.html'], gulp.series(
 		'html'
 	));
 
 	// Watch changes in Stylus files.
-	gulp.watch(['css/*.styl'], gulp.series(
+	gulp.watch(['src/css/*.styl'], gulp.series(
 		'css'
 	));
 
