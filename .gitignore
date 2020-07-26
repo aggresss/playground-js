@@ -69,4 +69,4 @@ out/
 package-lock.json
 
 # temp directory
-/tmp/
+tmp/
