@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello, World!</title>
+  <link rel="help" href="https://github.com/aggresss/dotfiles">
+</head>
+
+<body>
+  <h1>Hello, World!</h1>
+  <p>Hello, World!</p>
+  <script>
+    // 实现原型链有一种基本模式，其代码大致如下。
+    // 第一个构造函数
+    function SuperType() {
+      this.name = 'foo';
+    }
+    //第二个构造函数
+    function SubType() {
+      this.age = 10;
+    }
+
+    SuperType.prototype.getName = function () {
+      return this.name
+    }
+
+    SubType.prototype.getAge = function () {
+      return this.age
+    }
+    // SubType的原型继承了 SuperType
+    // 这样会重写SubType.prototype中constructor中的值，指向SuperType
+    SubType.prototype = new SuperType();
+    // 让构造器的指向更改回正确的指向
+    SubType.prototype.constructor = SubType;
+
+    var instance1 = new SubType();
+    console.log(instance1);
+    instance1.name = 'bar'
+    var instance2 = new SubType();
+    console.log(instance2.name)
+    // 通过原型链继承 所有实例公用一套变量，在一个实例中对变量进行了改变 ，则所有实例中的变量都被改变了
+    console.log(instance1.getName());
+  </script>
+</body>
+
+</html>

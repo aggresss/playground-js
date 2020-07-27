@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello, World!</title>
+  <link rel="help" href="https://github.com/aggresss/dotfiles">
+</head>
+
+<body>
+  <h1>Hello, World!</h1>
+  <p>Hello, World!</p>
+  <script>
+    function SuperType(name) {
+      this.name = name;
+    }
+
+    function SubType(name) {
+      //可以向父类中传递参数
+      SuperType.call(this, name)
+      // console.log(this);  //
+    }
+
+    var instance1 = new SubType('letme');
+    var instance2 = new SubType();
+    console.log(instance1.name);  //  'letme'
+    console.log(instance2.name);  //  undefined
+
+  </script>
+</body>
+
+</html>
