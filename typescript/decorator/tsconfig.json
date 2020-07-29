@@ -4,8 +4,9 @@
 	{
 		"lib": [ "es6", "dom" ],
 		"target": "es2020",
-    "module": "commonjs",
+		"module": "commonjs",
     "moduleResolution": "node",
+    "experimentalDecorators": true,
 		"esModuleInterop": true,
 		"declaration": true,
 		"declarationMap": true,
@@ -17,8 +18,7 @@
 		"noImplicitAny" : true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": false,
-    "experimentalDecorators": true
+		"resolveJsonModule": false
 	},
 	"include": [ "src" ]
 }
