@@ -4,4 +4,4 @@ declare class Car {
     disp(): void;
 }
 declare var obj: Car;
-//# sourceMappingURL=hello.d.ts.map
+//# sourceMappingURL=index.d.ts.map

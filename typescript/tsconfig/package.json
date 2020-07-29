@@ -1,0 +1,20 @@
+{
+  "name": "tsconfig",
+  "version": "1.0.0",
+  "description": "Reference: * https://www.typescriptlang.org/tsconfig",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "run": "node lib/index.js",
+    "clean": "rm -rf ./lib/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
+}
