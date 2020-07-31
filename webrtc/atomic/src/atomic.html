@@ -17,26 +17,20 @@
     const add = (pc, can) => can && pc.addIceCandidate(can).catch(e => console.log(e));
     pc1.onicecandidate = e => add(pc2, e.candidate);
     pc2.onicecandidate = e => add(pc1, e.candidate);
-    pc2.ontrack = async e => {
-      video.srcObject = e.streams[0];
-    };
+    pc2.ontrack = async e => { video.srcObject = e.streams[0]; };
     pc1.onnegotiationneeded = async e => {
       try {
         await pc1.setLocalDescription(await pc1.createOffer());
         await pc2.setRemoteDescription(pc1.localDescription);
         await pc2.setLocalDescription(await pc2.createAnswer());
         await pc1.setRemoteDescription(pc2.localDescription);
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) { console.log(e); }
     };
     (async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { height: 480 } });
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { height: 640 } });
         const sender = pc1.addTrack(stream.getVideoTracks()[0], stream);
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) { console.log(e); }
     })();
   </script>
 </body>
