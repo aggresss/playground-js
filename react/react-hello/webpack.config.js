@@ -8,7 +8,6 @@ const outPath = path.join(__dirname, 'dist');
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const webpackConfig = {
   context: sourcePath,
@@ -19,6 +18,18 @@ const webpackConfig = {
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: 'tslint-loader',
+            options: {
+              configFile: path.resolve(__dirname, 'tslint.json'),
+            },
+          },
+        ],
+        exclude: /node_modules/,
+      },
       {
         test: /\.tsx?$/,
         use: [
@@ -53,10 +64,6 @@ const webpackConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env.BUILD_TIME': JSON.stringify(new Date().toLocaleString())
-    }),
-    new ForkTsCheckerWebpackPlugin({
-      checkSyntacticErrors: true,
-      tsconfig: '../tsconfig.json',
     })
   ],
   resolve: {
