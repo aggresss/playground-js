@@ -8,10 +8,9 @@
 
 <body>
   <video id="video" width="320" height="240" playsinline autoplay muted></video>
-  <div id="div"></div>
   <script>
-    const div = document.getElementById("div");
     const video = document.getElementById("video");
+    const div = document.body.appendChild(document.createElement("div"));
     const console = { log: msg => div.innerHTML += msg + "<br>" };
     const pc1 = new RTCPeerConnection(), pc2 = new RTCPeerConnection();
     const add = (pc, can) => can && pc.addIceCandidate(can).catch(e => console.log(e));
