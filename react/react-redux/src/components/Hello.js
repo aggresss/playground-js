@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Hello = ({ onClick, reset, message }) => {
+const Hello = ({ click, reset, message }) => {
   return (
     <div>
       <h1>{ message }</h1>
-      <button onClick={onClick}>Click</button>
+      <button onClick={click}>Click</button>
       &nbsp;
       <button onClick={reset}>Reset</button>
     </div>
@@ -14,7 +14,7 @@ const Hello = ({ onClick, reset, message }) => {
 
 
 Hello.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  click: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired
 }
