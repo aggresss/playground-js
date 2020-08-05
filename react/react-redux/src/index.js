@@ -7,6 +7,10 @@ import helloReducer from './reducers'
 
 let store = createStore(helloReducer);
 
+store.subscribe(
+  () => console.log(store.getState())
+)
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
