@@ -49,8 +49,8 @@ react-redux 提供了一个 connect 函数，用于把 React 组件和 Redux 的
 - 把展示组件的状态变化同步到 Redux 的 store 中
 
 通过为 connect 传递两个参数可以让 容器组件具备这两个功能，这两个参数的类型都是函数，
-- mapStateToProps 负责从全局应用状态 state 中取出所需数据，映射展示到组件的 props；
-- mapDispatchToProps 负责把需要用到的 action 映射到展示组件的 props 上；
+- mapStateToProps 负责从全局应用状态 state 中取出所需数据，映射展示到组件的 props； control → view
+- mapDispatchToProps 负责把需要用到的 action 映射到展示组件的 props 上； view → control
 
 每当 store 中的 state 更新时，mapStateToProps 会重新执行，重新计算传递给展示组件的 props，从而触发重新渲染。
 
