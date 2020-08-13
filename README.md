@@ -8,5 +8,5 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/"><img src="./images/npm_logo.png" alt="npm"></a>
-  <a href="https://developer.mozilla.org/"><img src="./images/npm_logo.png" alt="mdn"></a>
+  <a href="https://developer.mozilla.org/"><img src="./images/mdn_logo.png" alt="mdn"></a>
 </p>
