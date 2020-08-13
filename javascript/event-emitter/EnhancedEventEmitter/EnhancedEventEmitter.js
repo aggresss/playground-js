@@ -12,9 +12,7 @@ class EnhancedEventEmitter extends EventEmitter {
       this.emit(event, ...args);
     }
     catch (error) {
-      console.log(
-        'safeEmit() | event listener threw an error [event:%s]:%o',
-        event, error);
+      console.log('safeEmit() | event listener threw an error [event:%s]:%o', event, error);
     }
   }
 }
