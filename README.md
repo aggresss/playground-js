@@ -4,7 +4,7 @@
 
 - [https://aggresss.github.io/playground-js/webrtc/atomic/src/atomic.html](https://aggresss.github.io/playground-js/webrtc/atomic/src/atomic.html)
 
-### Vendor
+### Vendor Support
 
 <p align="center">
   <a href="https://www.npmjs.com/"><img src="./images/npm_logo.png" alt="npm"></a>
