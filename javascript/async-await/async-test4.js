@@ -4,12 +4,12 @@ async function a() {
       resolve(num)
   });
   let a2 = await new Promise(function(resolve,reject){
-     console.log(a1) // 5
+     console.log(a1)
      resolve(a1)
   });
 
   let a3 = await a2
-  console.log(a3) // 5
+  console.log(a3)
 }
 
 a()

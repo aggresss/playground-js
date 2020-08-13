@@ -1,6 +1,7 @@
 **Reference**
 - https://www.jianshu.com/p/1e75bd387aa0
 - https://www.cnblogs.com/mingweiyard/p/7483869.html
+- https://www.cnblogs.com/jsgoshu/p/11444404.html
 
 async function语法
 - 自动将常规函数转换成Promise，返回值也是一个Promise对象
