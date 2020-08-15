@@ -7,7 +7,12 @@
 ### Vendor Support
 
 <p align="center">
-  <a href="https://nodejs.org/"><img src="./images/nodejs_icon.png" alt="mdn"></a>
+  <a href="https://nodejs.org/"><img src="./images/nodejs_icon.png" alt="nodejs"></a>
   <a href="https://www.npmjs.com/"><img src="./images/npm_icon.png" alt="npm"></a>
   <a href="https://developer.mozilla.org/"><img src="./images/mdn_icon.png" alt="mdn"></a>
 </p>
+
+<p align="center">
+  <a href="https://gulpjs.com/"><img src="./images/gulp_icon.png" alt="gulp"></a>
+</p>
+
