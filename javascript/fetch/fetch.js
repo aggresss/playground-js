@@ -21,10 +21,10 @@ function fetch_test() {
 }
 
 
-function fetchWithTimeout (url, timeout_ms) {
+function fetchWithTimeout (url, option, timeout_ms) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject('timeout'), timeout_ms);
-    return fetch(url)
+    return fetch(url, option)
       .then(response => {
         clearTimeout(timeout);
         if (response.status === 200) {

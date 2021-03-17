@@ -12,7 +12,7 @@
     <script src='fetch.js'></script>
     <script type="text/javascript">
         async function btn1_func() {
-          await fetchWithTimeout('https://httpstat.us/200?sleep=5000', 3000)
+          await fetchWithTimeout('https://httpstat.us/200?sleep=5000', {}, 3000)
           .then(res => console.log(res))
           .catch((err) => {console.log(err)});
         }
