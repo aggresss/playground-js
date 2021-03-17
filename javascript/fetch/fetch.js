@@ -24,7 +24,6 @@ function fetch_test() {
 function fetchWithTimeout (url, timeout_ms) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => reject('timeout'), timeout_ms);
-
     return fetch(url)
       .then(response => {
         clearTimeout(timeout);
