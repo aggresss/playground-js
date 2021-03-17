@@ -19,3 +19,22 @@ function fetch_test() {
     controller.abort();
   }, 3000);
 }
+
+
+function fetchWithTimeout (url, timeout_ms) {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject('timeout'), timeout_ms);
+
+    return fetch(url)
+      .then(response => {
+        clearTimeout(timeout);
+        if (response.status === 200) {
+          return resolve(response);
+        }
+        return reject(response);
+      }, rejectReason => {
+        clearTimeout(timeout);
+        return reject(rejectReason);
+      });
+  });
+}

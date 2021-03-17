@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>event</title>
+    <title>test</title>
 </head>
 
 <body>
@@ -11,8 +11,13 @@
     </div>
     <script src='fetch.js'></script>
     <script type="text/javascript">
+        async function btn1_func() {
+          await fetchWithTimeout('https://httpstat.us/200?sleep=5000', 3000)
+          .then(res => console.log(res))
+          .catch((err) => {console.log(err)});
+        }
         const btn1 = document.querySelector('#btn1');
-        btn1.addEventListener('click', fetch_test);
+        btn1.addEventListener('click', btn1_func);
     </script>
 
 </body>
