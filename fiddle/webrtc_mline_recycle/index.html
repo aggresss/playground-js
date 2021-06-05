@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <video id="video" width="320" height="240" playsinline autoplay muted></video>
+  <script>
+    const video = document.getElementById("video");
+    (async () => {
+      try {
+        const local = new RTCPeerConnection();
+        const remote = new RTCPeerConnection();
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+        const streamClone = await stream.clone()
+        let offer, answer;
+
+        negotiationFunc = async () => {
+          offer = await local.createOffer();
+          console.log(`offer: ${offer.sdp}`);
+          await Promise.all([
+            local.setLocalDescription(offer),
+            remote.setRemoteDescription(offer),
+          ]);
+          answer = await remote.createAnswer();
+          console.log(`answer: ${answer.sdp}`);
+          await Promise.all([
+            remote.setLocalDescription(answer),
+            local.setRemoteDescription(answer),
+          ]);
+        };
+
+        local.onnegotiationneeded = async e => { console.log("local onnegotiationneeded") };
+        local.onsignalingstatechange = async e => { console.log("local onsignalingstatechange", local.signalingState) };
+        remote.ontrack = async e => { console.log("remote ontrack") };
+
+        console.log("local.addTransceiver");
+        local.addTransceiver('audio', { direction: 'sendonly' });
+
+        console.log("local.addTrack");
+        local.addTrack(stream.getAudioTracks()[0], stream);
+
+        await negotiationFunc()
+
+        console.log("local.getTransceivers()[0].stop()");
+        local.getTransceivers()[0].stop();
+
+        await negotiationFunc()
+
+        console.log("local.addTrack");
+        local.addTrack(streamClone.getAudioTracks()[0], streamClone);
+
+        await negotiationFunc()
+
+      } catch (error) {
+        console.log(error)
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
