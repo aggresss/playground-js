@@ -20,7 +20,7 @@
         const streamClone = await stream.clone()
         let offer, answer;
 
-        negotiationFunc = async () => {
+        negotiationFunc = async opt => {
           offer = await local.createOffer();
           console.log(`offer: ${offer.sdp}`);
           await Promise.all([
@@ -29,7 +29,7 @@
           ]);
           answer = await remote.createAnswer();
           if(typeof opt === "function") {
-            opt(answer.sdp);
+            answer = opt(answer);
           };
           console.log(`answer: ${answer.sdp}`);
           await Promise.all([

@@ -29,7 +29,7 @@
           ]);
           answer = await remote.createAnswer();
           if(typeof opt === "function") {
-            opt(answer.sdp);
+            answer = opt(answer);
           };
           console.log(`answer: ${answer.sdp}`);
           await Promise.all([
@@ -48,8 +48,9 @@
         console.log("local.addTrack");
         local.addTrack(stream.getAudioTracks()[0], stream);
 
-        await negotiationFunc(sdp => {
-          sdp = sdp.replace(/m=audio 9/g, 'm=audio 0');
+        await negotiationFunc(answer => {
+          answer.sdp = answer.sdp.replace(/m=audio 9/g, 'm=audio 0');
+          return answer
         });
 
         console.log("local.addTrack");
