@@ -20,7 +20,7 @@
         const streamClone = await stream.clone()
         let offer, answer;
 
-        negotiationFunc = async () => {
+        negotiationFunc = async opt => {
           offer = await local.createOffer();
           console.log(`offer: ${offer.sdp}`);
           await Promise.all([
@@ -28,6 +28,9 @@
             remote.setRemoteDescription(offer),
           ]);
           answer = await remote.createAnswer();
+          if(typeof opt === "function") {
+            opt(answer.sdp);
+          };
           console.log(`answer: ${answer.sdp}`);
           await Promise.all([
             remote.setLocalDescription(answer),
@@ -45,17 +48,14 @@
         console.log("local.addTrack");
         local.addTrack(stream.getAudioTracks()[0], stream);
 
-        await negotiationFunc()
-
-        console.log("local.getTransceivers()[0].stop()");
-        local.getTransceivers()[0].stop();
-
-        await negotiationFunc()
+        await negotiationFunc(sdp => {
+          sdp = sdp.replace(/m=audio 9/g, 'm=audio 0');
+        });
 
         console.log("local.addTrack");
         local.addTrack(streamClone.getAudioTracks()[0], streamClone);
 
-        await negotiationFunc()
+        await negotiationFunc();
 
       } catch (error) {
         console.log(error)
