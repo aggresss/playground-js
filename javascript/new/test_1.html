@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <script>
+    const Person = (function() {
+      function Person() {
+        console.log('construct person');
+      }
+      return Person;
+    })();
+    let p = new Person();
+  </script>
+
+</body>
+
+</html>
