@@ -9,3 +9,10 @@ IIFE 的出现是为了弥补 JavaScript 在 scope 方面的缺陷：JavaScript 
 class 是构造函数的语法糖，即 class 的本质是构造函数。class 的继承 extends 本质为构造函数的原型链的继承。
 
 通过 class 定义的类和通过构造函数定义的类二者本质相同。并且在 JavaScript 执行时，会将第一种转会为第二种执行。所以 ES6 class 的写法实质就是构造函数。
+
+new 做了这样几件事：
+
+1. 创建了一个空对象，例如：obj；
+2. 将空对象原型的内存地址 \__proto__ 指向函数的 prototype；
+3. 利用函数的 call 方法，将原本指向 window 的绑定对象 this 指向了 obj。（这样一来，当我们向函数中再传递实参时，对象的属性就会被挂载到 obj 上）；
+4. 利用函数返回对象 obj；

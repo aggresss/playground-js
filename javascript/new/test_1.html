@@ -11,12 +11,12 @@
 <body>
   <script>
     const Person = (function() {
-      function Person() {
-        console.log('construct person');
+      function Person(name) {
+        console.log(`construct person ${name}`);
       }
       return Person;
     })();
-    let p = new Person();
+    let p = new Person("admin");
   </script>
 
 </body>
