@@ -17,4 +17,5 @@
   <a href="https://webpack.js.org/"><img src="./images/webpack_icon.png" alt="webpack"></a>
   <a href="https://yarnpkg.com/"><img src="./images/yarn_icon.png" alt="yarn"></a>
   <a href="https://rollupjs.org/"><img src="./images/rollup_icon.png" alt="rollup"></a>
+  <a href="https://bower.io/"><img src="./images/bower_icon.png" alt="bower"></a>
 </p>
