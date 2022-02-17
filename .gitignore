@@ -71,3 +71,4 @@ package-lock.json
 
 # temp directory
 tmp/
+frameworks/bootstrap/tmp/
