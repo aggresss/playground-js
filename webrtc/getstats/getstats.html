@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>WebRTC Atomic</title>
+  <link rel="help" href="https://aggresss.github.io/playground-js/webrtc/atomic/src/atomic.html">
+</head>
+
+<body>
+  <video id="video" width="320" height="240" playsinline autoplay muted></video>
+  <script>
+    const video = document.getElementById("video");
+    const div = document.body.appendChild(document.createElement("div"));
+    const pc1 = new RTCPeerConnection(), pc2 = new RTCPeerConnection();
+    const add = (pc, can) => can && pc.addIceCandidate(can).catch(e => console.log(e));
+    pc1.onicecandidate = e => add(pc2, e.candidate);
+    pc2.onicecandidate = e => add(pc1, e.candidate);
+    pc2.ontrack = async e => { video.srcObject = e.streams[0]; };
+    pc1.onnegotiationneeded = async e => {
+      try {
+        await pc1.setLocalDescription(await pc1.createOffer());
+        await pc2.setRemoteDescription(pc1.localDescription);
+        await pc2.setLocalDescription(await pc2.createAnswer());
+        await pc1.setRemoteDescription(pc2.localDescription);
+      } catch (e) { console.log(e); }
+    };
+    (async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { height: 640 } });
+        const sender = pc1.addTrack(stream.getVideoTracks()[0], stream);
+      } catch (e) { console.log(e); }
+    })();
+    window.setInterval(function () {
+      pc1.getStats(null).then(stats => {
+        console.log([...stats.entries()]);
+        stats.forEach(report => {
+          console.log(report);
+        });
+        console.log('\n\n\n\n\n\n');
+      });
+    }, 10000);
+  </script>
+</body>
+
+</html>
