@@ -15,14 +15,14 @@
       const video = document.getElementById("video");
       const pc1 = new RTCPeerConnection(), pc2 = new RTCPeerConnection();
       // origin
-      const capabilities = RTCRtpSender.getCapabilities('video').codecs;
+      const capabilities = RTCRtpSender.getCapabilities('video').codecs
       console.log(capabilities);
       pc1.addTransceiver('video');
       const offer1 = await pc1.createOffer();
       console.log(offer1.sdp);
       // set
       const capMod = [];
-      for(let i = capabilities.length - 1; i >= 0; i--) {
+      for (let i = capabilities.length - 1; i >= 0; i--) {
         capMod.push(capabilities[i]);
       }
       console.log(capMod);
