@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+  <video id="video" width="320" height="240" playsinline autoplay muted></video>
+  <script>
+    (async () => {
+      const video = document.getElementById("video");
+      const pc1 = new RTCPeerConnection(), pc2 = new RTCPeerConnection();
+      // origin
+      const capabilities = RTCRtpSender.getCapabilities('video').codecs;
+      console.log(capabilities);
+      pc1.addTransceiver('video');
+      const offer1 = await pc1.createOffer();
+      console.log(offer1.sdp);
+      // set
+      const capMod = [];
+      for(let i = capabilities.length - 1; i >= 0; i--) {
+        capMod.push(capabilities[i]);
+      }
+      console.log(capMod);
+      const transceiver = pc2.addTransceiver('video');
+      transceiver.setCodecPreferences(capMod);
+      const offer2 = await pc2.createOffer();
+      console.log(offer2.sdp);
+    })()
+  </script>
+
+</body>
+
+</html>
