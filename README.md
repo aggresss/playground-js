@@ -12,6 +12,11 @@
 </p>
 
 <p align="center">
+  <a href="https://reactjs.org/"><img src="./images/react_icon.png" alt="react"></a>
+  <a href="https://vuejs.org/"><img src="./images/vue_icon.png" alt="vue"></a>
+</p>
+
+<p align="center">
   <a href="https://babeljs.io/"><img src="./images/babel_icon.png" alt="babel"></a>
   <a href="https://www.typescriptlang.org/"><img src="./images/typescript_icon.png" alt="typescript"></a>
 </p>
