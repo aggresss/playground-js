@@ -33,6 +33,8 @@
   <a href="https://gulpjs.com/"><img src="./images/gulp_icon.png" alt="gulp"></a>
   <a href="https://rollupjs.org/"><img src="./images/rollup_icon.png" alt="rollup"></a>
   <a href="https://parceljs.org/"><img src="./images/parcel_icon.png" alt="parcel"></a>
+  <a href="https://www.snowpack.dev/"><img src="./images/snowpack_icon.png" alt="snowpack"></a>
+  <a href="https://vitejs.dev/"><img src="./images/vite_icon.png" alt="vite"></a>
   <a href="https://browserify.org/"><img src="./images/browserify_icon.png" alt="browserify"></a>
 </p>
 
