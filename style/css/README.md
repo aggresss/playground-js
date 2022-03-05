@@ -1,7 +1,14 @@
 # CSS
 
-多选择器
+## Selector
 
-- 或 `,`
-- 与 `<empty>`
-- 分级 `<space>`
+There are four different combinators in CSS:
+
+- descendant selector (space)
+- child selector (>)
+- adjacent sibling selector (+)
+- general sibling selector (~)
+
+## Reference
+
+- [https://www.w3schools.com/css/](https://www.w3schools.com/css/)
