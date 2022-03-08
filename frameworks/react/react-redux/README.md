@@ -5,7 +5,9 @@
 - https://www.jianshu.com/p/db0bee45b2da
 - https://github.com/vaibhavmule/react-redux-helloworld
 - https://www.jianshu.com/p/85e4757814cd
-- 《React 进阶之路》
+- https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html
+- https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html
+- https://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html
 
 ### 概念
 
@@ -16,9 +18,17 @@
 - action 描述发生了什么
 - reducer 根据 action 返回一个全新的 state
 
+- store 对象包含所有数据。如果想得到某个时点的数据，就要对 store 生成快照。这种时点的数据集合，就叫做 state。
+- **store dispatch action to reducer => reducer return state by action**
+
 react-redux 为了方便开发，提供了一个 Provider 组件，以及 connect 方法。
 
-connect() 接收四个参数，它们分别是 mapStateToProps，mapDispatchToProps，mergeProps 和 options。
+connect() 接收四个参数，它们分别是
+
+- mapStateToProps
+- mapDispatchToProps
+- mergeProps
+- options
 
 mapStateToProps(state, ownProps) : stateProps 这个函数允许我们将 store 中的数据作为 props 绑定到组件上。
 mapDispatchToProps，它的功能是，将 action 作为 props 绑定到 MyComp上。
@@ -26,6 +36,11 @@ mapDispatchToProps，它的功能是，将 action 作为 props 绑定到 MyComp�
 Redux 的核心是一个 store，这个 store 由 Redux 提供的 createStore(reducers[，initialState]) 方法生成。要想生成 store，reducers，同时也可以传入第二个可选参数初始化状态 initialState。
 
 Redux 最核心的 API ---- createStore，通过 createStore 方法创建的 store 是一个对象，它本身又包含4个方法。
+
+- dispatch()
+- subscribe()
+- getState()
+- replaceReducer()
 
 #### store
 
@@ -35,6 +50,11 @@ store 的 dispatch 操作需要传递 action 作为参数。
 
 #### 展示组件 容器组件
 
+React-Redux 将所有组件分成两大类：
+
+- UI 组件（presentational component）
+- 容器组件（container component）
+
 - container 容器组件，通过 connect 方法将 redux 和 component 关联起来
 - component 展示组件，只关注展示层
 
@@ -42,7 +62,7 @@ store 的 dispatch 操作需要传递 action 作为参数。
 
 容器组件负责应用逻辑的处理(how things work)，如发送网络请求、处理返回数据、将处理过的数据传递给展示组件使用等。容器组件还提供修改源数据的方法，通过展示组件的props传递给展示组件，当展示组件的状态变更引起源数据变化时，展示组件通过调用容器组件提供的方法同步这些变化。
 
-react-redux 提供了一个 connect 函数，用于把 React 组件和 Redux 的 store 连接起来，生成一个容器组件，负责数据管理和业务逻辑
+react-redux 提供了一个 connect 函数，用于把 React 组件和 Redux 的 store 连接起来，**生成一个容器组件**，负责数据管理和业务逻辑
 
 容器组件承担两个工作：
 
