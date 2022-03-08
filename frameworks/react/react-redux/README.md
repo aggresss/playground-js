@@ -45,10 +45,12 @@ store 的 dispatch 操作需要传递 action 作为参数。
 react-redux 提供了一个 connect 函数，用于把 React 组件和 Redux 的 store 连接起来，生成一个容器组件，负责数据管理和业务逻辑
 
 容器组件承担两个工作：
+
 - 从 Redux 的 store 中获取展示组件所需的应用状态
 - 把展示组件的状态变化同步到 Redux 的 store 中
 
 通过为 connect 传递两个参数可以让 容器组件具备这两个功能，这两个参数的类型都是函数，
+
 - mapStateToProps 负责从全局应用状态 state 中取出所需数据，映射展示到组件的 props； control → view
 - mapDispatchToProps 负责把需要用到的 action 映射到展示组件的 props 上； view → control
 
