@@ -19,11 +19,11 @@
     pc1.onnegotiationneeded = async e => {
       try {
         const offer = await pc1.createOffer()
-        console.log(`offer:\n%c${offer.sdp}`, 'color:blue');
+        console.log(`offer:\n%c${offer.sdp}`, 'color:magenta');
         await pc1.setLocalDescription(offer);
         await pc2.setRemoteDescription(pc1.localDescription);
         const answer = await pc2.createAnswer()
-        console.log(`answer:\n%c${answer.sdp}`, 'color:magenta');
+        console.log(`answer:\n%c${answer.sdp}`, 'color:green');
         await pc2.setLocalDescription(answer);
         await pc1.setRemoteDescription(pc2.localDescription);
       } catch (e) { console.log(e); }
