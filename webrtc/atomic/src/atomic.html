@@ -11,8 +11,6 @@
   <video id="video" width="320" height="240" playsinline autoplay muted></video>
   <script>
     const video = document.getElementById("video");
-    const div = document.body.appendChild(document.createElement("div"));
-    const console = { log: msg => div.innerHTML += msg + "<br>" };
     const pc1 = new RTCPeerConnection(), pc2 = new RTCPeerConnection();
     const add = (pc, can) => can && pc.addIceCandidate(can).catch(e => console.log(e));
     pc1.onicecandidate = e => add(pc2, e.candidate);
@@ -20,9 +18,13 @@
     pc2.ontrack = async e => { video.srcObject = e.streams[0]; };
     pc1.onnegotiationneeded = async e => {
       try {
-        await pc1.setLocalDescription(await pc1.createOffer());
+        const offer = await pc1.createOffer()
+        console.log(`offer:\n%c${offer.sdp}`, 'color:blue');
+        await pc1.setLocalDescription(offer);
         await pc2.setRemoteDescription(pc1.localDescription);
-        await pc2.setLocalDescription(await pc2.createAnswer());
+        const answer = await pc2.createAnswer()
+        console.log(`answer:\n%c${answer.sdp}`, 'color:magenta');
+        await pc2.setLocalDescription(answer);
         await pc1.setRemoteDescription(pc2.localDescription);
       } catch (e) { console.log(e); }
     };
